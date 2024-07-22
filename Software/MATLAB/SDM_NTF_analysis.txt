@@ -1,1 +1,3 @@
-
+This piece of code analyzes and plots the noise transfer function using matlab
+The samples are collected using System Verilog file (Software/System Verilog/FLB/SDM/SDM_tb_for_matlab.sv)
+The file SDM_tb_for_matlab.sv writes the SDM outputs into the file sdm_data.txt. This file will be analyzed and plotted using the matlab code.
