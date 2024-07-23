@@ -1,1 +1,3 @@
-
+To test the FLB, use FLB_tb.
+lines 79-87 will define the behavior of the module.
+Check the comments at lines 14-21 for further information regarding the control signals.
