@@ -146,12 +146,12 @@ initial begin
 end
 
 // Clock generation
-//initial begin
-//  clk = 0;
-//  forever #5 clk = ~clk; // 10ns clock period
-//end
-//
-//// Stimulus generation
+initial begin
+  clk = 0;
+  forever #5 clk = ~clk; // 10ns clock period
+end
+
+// Stimulus generation
 initial begin
   // Initialize inputs
   bin = 8'b00000000;
