@@ -11,13 +11,13 @@ wire [15:0] col_on;
 wire [15:0] col_off;
 
 // Registers Inputs (EMAS) 
-logic sdm_on;
-logic sdm_order;
-logic sdm_thrm_en;
-logic sdm_man_on;
-logic [2:0] sdm_man_val;
-logic [1:0] mtrx_clk_lag;
-logic [1:0] smpl_clk_lag;
+logic sdm_on; //Enables noise-shaping  
+logic sdm_order; // 0 for first order, 1 for second order
+logic sdm_thrm_en; // 1 enables thermometric output
+logic sdm_man_on; // enables manually output definition 
+logic [2:0] sdm_man_val; // manually defined value 
+logic [1:0] mtrx_clk_lag; // Picks the number of lag clock cycles for the decoder
+logic [1:0] smpl_clk_lag; // Picks the number of lag clock cycles for input sampling
 logic rst_n;
 
 // Outputs 
