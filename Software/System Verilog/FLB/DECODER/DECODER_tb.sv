@@ -22,10 +22,10 @@ DECODER DUT (
   .clk(clk),
   .s_mtrx(bin),
   .mtrx_thrm(mtrx_thrm)
-//  .row_p(row_p),
-//  .row_n(row_n),
-//  .col_on(col_on),
-//  .col_off(col_off)
+  .row_p(row_p),
+  .row_n(row_n),
+  .col_on(col_on),
+  .col_off(col_off)
 );
 
 assign col_off = mtrx_thrm[15:0];
