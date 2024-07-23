@@ -1,1 +1,6 @@
+To collect SDM outputs to a file, use SDM_tb_for_matlab.sv
+This file samples the SDM outputs into a text file.
+This text file can be analyzed and plotted using matlab script
+for further information look for DPLL_FLB/Software/MATLAB/SDM_NTF_analysis.txt
 
+To change the number of samples, change the parameter i in line 62 in SDM_tb_for_matlab.sv
