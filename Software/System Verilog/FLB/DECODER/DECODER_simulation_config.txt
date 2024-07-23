@@ -1,1 +1,4 @@
-
+Use DECODER_tb.sv to simulate the functionality of Decoder_Module.sv
+bin[7:0] is the input. 
+use lines 37-143 to examine different test cases.
+use lines 189-228 to verify the encoder's functionality. these lines simulates the behavior of the DCO.
