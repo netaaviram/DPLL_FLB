@@ -1,1 +1,1 @@
-
+lines 51-64 (in ANA_TOP_tb.sv determines the behavior of the blocks as described in the comments. 
