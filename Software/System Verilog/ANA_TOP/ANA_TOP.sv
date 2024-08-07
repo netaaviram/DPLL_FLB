@@ -3,29 +3,29 @@
 module ANA_TOP (
 	// ANA_TOP inputs
 	input logic ref_clk,
-	input logic [15:0] dlf_out,
-	input logic [7:0] band,
-	input logic csr_flb_sdm_on,
-	input logic csr_flb_sdm_order,
-	input logic csr_flb_sdm_thrm_en,
-	input logic csr_flb_sdm_man_on,
-	input logic [2:0] csr_flb_sdm_man_val,
-	input logic [1:0] csr_flb_mtrx_clk_lag,
-	input logic [1:0] csr_flb_smpl_clk_lag,
-	input logic csr_flb_rst_n,
-	input logic [7:0] csr_div_ratio,
-	input logic csr_div_power_down,
+	input logic [15:0] dlf_out,//input from the digital loop filter
+	input logic [7:0] band, //input from the digital loop filter
+	input logic csr_flb_sdm_on, //E-MAS registers input (FLB), truns on the sdm
+	input logic csr_flb_sdm_order, //E-MAS registers input, '0' for first order, '1' for second order
+	input logic csr_flb_sdm_thrm_en, //E-MAS registers input, enables thermometric decoding
+	input logic csr_flb_sdm_man_on, //E-MAS registers input, enables manually value 
+	input logic [2:0] csr_flb_sdm_man_val, //E-MAS registers input, manually value to be written
+	input logic [1:0] csr_flb_mtrx_clk_lag, //E-MAS registers input, lag of the dec_clk
+	input logic [1:0] csr_flb_smpl_clk_lag, //E-MAS registers input, lag of the smpl_clk
+	input logic csr_flb_rst_n, //E-MAS registers input, flb reset - active low
+	input logic [7:0] csr_div_ratio, //E-MAS registers input (Divider), determines the ratio to devide by
+	input logic csr_div_power_down, //E-MAS registers input (Divider), active low reset
 	
 	// ANA_TOP outputs
 	output logic dco_clk,
 	output logic [63:0] sampled_tdc
 );
-	logic [15:0] row_p ; // 16-bit row positive output
-	logic [15:0] row_n; // 16-bit row negative output
-	logic [15:0] col_on; // 16-bit column on output
-	logic [15:0] col_off; // 16-bit column off output	output logic [255:0] band_thrm,
-	logic [15:0] band_thrm_hi;
-	logic [15:0] band_thrm_lo;
+	logic [15:0] row_p ; // 16-bit row positive output of the FLB, input of the DCO
+	logic [15:0] row_n; // 16-bit row negative output of the FLB, input of the DCO
+	logic [15:0] col_on; // 16-bit column on output of the FLB, input of the DCO
+	logic [15:0] col_off; // 16-bit column off output of the FLB, input of the DCO
+	logic [15:0] band_thrm_hi; //output of the FLB, input of the DCO 
+	logic [15:0] band_thrm_lo; //output of the FLB, input of the DCO
 	logic [7:0] band_bin;
 	logic nsh_clk;
 	logic [2:0] os_thrm;	
