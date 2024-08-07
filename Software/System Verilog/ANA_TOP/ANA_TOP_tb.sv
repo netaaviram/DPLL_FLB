@@ -71,9 +71,9 @@ module tb_ANA_TOP;
 		#100;
 		tb_dlf_out = 16'h00FF;
 		tb_band = 8'hAA;
-		tb_csr_flb_sdm_on = 1;
-		tb_csr_flb_sdm_order = 1;
-		tb_csr_flb_sdm_thrm_en = 0;
+		tb_csr_flb_sdm_on = 1; 
+		tb_csr_flb_sdm_order = 1; //for second order SDM
+		tb_csr_flb_sdm_thrm_en = 0; //Binary output os_bin[1:0]
 		tb_csr_flb_sdm_man_on = 0;
 		tb_csr_flb_sdm_man_val = 3'b101;
 		tb_csr_flb_mtrx_clk_lag = 2'b10;
