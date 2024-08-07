@@ -5,26 +5,30 @@ module FLB (
 	input  logic [15:0] dlf_out, 
 	input  logic [7:0] band,
 	//Registers Inputs (EMAS) 
-	input  logic sdm_on,
-	input  logic sdm_order,
-	input  logic sdm_thrm_en,
-	input  logic sdm_man_on,
-	input  logic [2:0] sdm_man_val,
-	input  logic [1:0] mtrx_clk_lag,
-	input  logic [1:0] smpl_clk_lag,
-	input  logic rst_n,
+	input  logic csr_flb_sdm_on,
+	input  logic csr_flb_sdm_order,
+	input  logic csr_flb_sdm_thrm_en,
+	input  logic csr_flb_sdm_man_on,
+	input  logic [2:0] csr_flb_sdm_man_val,
+	input  logic [1:0] csr_flb_mtrx_clk_lag,
+	input  logic [1:0] csr_flb_smpl_clk_lag,
+	input  logic csr_flb_rst_n,
 	//outputs 
 	output logic [2:0] os_thrm,
-	output logic [63:0] mtrx_thrm,
-	output logic [255:0] band_thrm,
-	output logic [7:0] band_bin
+	output logic [15:0] row_p, // 16-bit row positive output
+	output logic [15:0] row_n, // 16-bit row negative output
+	output logic [15:0] col_on, // 16-bit column on output
+	output logic [15:0] col_off, // 16-bit column off output
+	output logic [7:0] band_bin,
+	output logic [15:0] band_thrm_hi,
+	output logic [15:0] band_thrm_lo
 );
 
-	logic [7:0] s_os;
-	logic dec_clk;
-	logic [7:0] s_mtrx;
-	logic [7:0] s_band;
-	logic [1:0] os_bin;
+	logic [7:0] s_os; //Input of the SDM
+	logic dec_clk; //Input of the Decoder
+	logic [7:0] s_mtrx; //Input of the Decoder
+	logic [7:0] s_band; //Input of the Decoder
+	logic [1:0] os_bin; //Input of the Decoder
 	
 //SYNC instantiation
 SYNC my_synchronizer (
@@ -32,8 +36,9 @@ SYNC my_synchronizer (
 	.ref_clk(ref_clk),
 	.dlf_out(dlf_out), 
 	.band(band), 
-	.mtrx_clk_lag(mtrx_clk_lag),
-	.smpl_clk_lag(smpl_clk_lag),
+	.csr_flb_mtrx_clk_lag(csr_flb_mtrx_clk_lag),
+	.csr_flb_smpl_clk_lag(csr_flb_smpl_clk_lag),
+	.csr_flb_rst_n(csr_flb_rst_n),
 	.s_os(s_os),
 	.dec_clk(dec_clk),
 	.s_mtrx(s_mtrx),
@@ -44,23 +49,28 @@ SYNC my_synchronizer (
 SDM my_sdm (
 	.nsh_clk(nsh_clk),       
 	.os_data(s_os), 
-	.sdm_on(sdm_on), 
-	.sdm_order(sdm_order),
-	.sdm_man_val(sdm_man_val),
-	.sdm_man_on(sdm_man_on),
-	.sdm_thrm_en(sdm_thrm_en),
+	.csr_flb_sdm_on(csr_flb_sdm_on), 
+	.csr_flb_sdm_order(csr_flb_sdm_order),
+	.csr_flb_sdm_man_val(csr_flb_sdm_man_val),
+	.csr_flb_sdm_man_on(csr_flb_sdm_man_on),
+	.csr_flb_sdm_thrm_en(csr_flb_sdm_thrm_en),
 	.os_bin(os_bin),    
 	.os_thrm(os_thrm)
 );
 
 //DECODER instantiation
 DECODER my_dec (
+	.csr_flb_rst_n(csr_flb_rst_n),
 	.os_bin(os_bin),
 	.clk(dec_clk),
 	.s_mtrx(s_mtrx),
 	.s_band(s_band),
-	.mtrx_thrm(mtrx_thrm),
-	.band_thrm(band_thrm),
+	.row_p(row_p),
+	.row_n(row_n),
+	.col_on(col_on),
+	.col_off(col_off),
+	.band_thrm_hi(band_thrm_hi),
+	.band_thrm_lo(band_thrm_lo),
 	.band_bin(band_bin)
 );
 
